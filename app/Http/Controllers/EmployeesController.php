@@ -49,7 +49,8 @@ class EmployeesController extends Controller
     public function show(Employees $employees)
     {
         //
-        return response()->json($employees);
+        echo 'lakfdlasd falf lkfjadf lak  ';
+        //   return response()->json($employees);
     }
 
     /**

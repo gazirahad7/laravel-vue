@@ -5,6 +5,8 @@ import NotFound from "../components/NotFound.vue";
 
 import Employees from "../components/Employees/index.vue";
 
+import ShowSingleEmployee from "../components/Employees/show.vue";
+
 const routes = [
     {
         name: "home",
@@ -15,6 +17,11 @@ const routes = [
         name: "employees",
         path: "/employees",
         component: Employees,
+    },
+    {
+        path: "/employees/show/:id",
+        component: ShowSingleEmployee,
+        props: true,
     },
     {
         path: "/:pathMatch(.*)*",
