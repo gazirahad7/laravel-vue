@@ -46,11 +46,36 @@ class EmployeesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Employees $employees)
+    public function show(Employees $id)
     {
-        //
-        echo 'lakfdlasd falf lkfjadf lak  ';
-        //   return response()->json($employees);
+        try {
+            $employee = Employees::find($id);
+
+            echo $employee;
+            if ($employee) {
+                return response()->json(['employee' => $employee], 200);
+            } else {
+                return response()->json(['error' => 'Employee not found'], 404);
+            }
+        } catch (\Exception $exception) {
+            return response()->json(['error' => 'An error occurred'], 500);
+        }
+    }
+
+    public function show_employee(Employees $id)
+    {
+        try {
+            $employee = Employees::find($id);
+
+            // dd($employee);
+            if ($employee) {
+                return response()->json(['employee' => $employee], 200);
+            } else {
+                return response()->json(['error' => 'Employee not found'], 404);
+            }
+        } catch (\Exception $exception) {
+            // return response()->json(['error' => 'An error occurred'], 500);
+        }
     }
 
     /**

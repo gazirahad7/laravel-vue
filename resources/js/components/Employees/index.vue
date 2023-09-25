@@ -73,8 +73,8 @@ const onShow = (id) => {
 };
 
 const getEmployees = async () => {
-    //let res = await axios.get("api/get-employees");
-    let res = await axios.get("api/employees");
+    let res = await axios.get("/api/get-employees");
+    // let res = await axios.get("api/employees");
     console.log({ res });
     employees.value = res.data.employees;
 };
