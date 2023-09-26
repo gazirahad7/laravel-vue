@@ -70,6 +70,7 @@ class EmployeesController extends Controller
             // dd($employee);
             if ($employee) {
                 return response()->json(['employee' => $employee], 200);
+
             } else {
                 return response()->json(['error' => 'Employee not found'], 404);
             }
