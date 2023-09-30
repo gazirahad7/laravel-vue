@@ -16,7 +16,7 @@ const routes = [
     },
     {
         name: "create",
-        path: "/employee/create",
+        path: "/employees/create",
         component: CreateEmployee,
     },
     {

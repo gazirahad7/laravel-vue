@@ -21,9 +21,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        //
         $employees = Employees::all();
-
         return response()->json(['employees' => $employees], 200);
     }
 
@@ -40,7 +38,41 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee = Employees::create($request->post());
+
+        return response()->json([
+            'message' => 'Employee created successfully',
+            'employee' => $employee,
+        ]);
+    }
+
+    public function storeEmployee(Request $request)
+    {
+        // $formFields = $request->validate([
+        //     'name' => 'required|min:4',
+        //     'email' => 'required',
+        //     'age' => 'required',
+        //     'gender' => 'required',
+        // ]);
+
+        // dd($formFields);
+
+        // dd('jl');
+        // $employee = new Employees();
+        // $employee->name = $request->name;
+        // $employee->age = $request->age;
+        // $employee->email = $request->email;
+        // $employee->gender = $request->gender;
+        // dd($employee);
+        // $employee->save();
+
+        $employee = Employees::create($request->post());
+
+        return response()->json([
+            'message' => 'Employee created successfully',
+            'employee' => $employee,
+        ]);
+
     }
 
     /**
@@ -100,5 +132,6 @@ class EmployeesController extends Controller
     public function destroy(Employees $employees)
     {
         //
+        return 'aldjflksadkl ';
     }
 }
