@@ -2,6 +2,15 @@
     <div class="container my-5">
         <h2 class="">Employee list</h2>
         <div class="my-5 p-4 border rounded-4">
+            <!-- Loading state -->
+            <div v-if="!employees" class="text-center">Loading...</div>
+
+            <!-- Error state -->
+            <div v-else-if="error" class="text-center text-danger">
+                {{ error }}
+            </div>
+
+            <!-- Data state -->
             <table class="table">
                 <thead>
                     <tr>
@@ -14,14 +23,13 @@
                         <th scope="col " class="text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody v-if="employees.length > 0">
+                <tbody v-if="employees?.length > 0">
                     <tr v-for="(user, index) in employees" :key="user.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.phone }}</td>
                         <td>{{ user.website }}</td>
-
                         <td
                             class="text-center d-flex gap-2 justify-content-center"
                         >
@@ -59,23 +67,17 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { onMounted, ref } from "vue";
-import router from "../../router";
+import useSWRV from "swrv";
+import { apis } from "../../apis/apiEndPoint";
+const { employeeAPI } = apis;
 
-let employees = ref([]);
+//const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = function (url) {
+    return fetch(url).then((r) => r.json());
+};
 onMounted(async () => {
-    getEmployees();
+    //  getEmployees();
 });
-
-const onShow = (id) => {
-    //  router.push("/employees/show" + id);
-};
-
-const getEmployees = async () => {
-    let res = await axios.get("/api/get-employees");
-    // let res = await axios.get("api/employees");
-    console.log({ res });
-    employees.value = res.data.employees;
-};
+const { data: employees, error, isLoading } = useSWRV(employeeAPI.getEmployees);
 </script>

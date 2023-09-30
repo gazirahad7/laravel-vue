@@ -4,6 +4,7 @@ import Welcome from "../components/Welcome.vue";
 import NotFound from "../components/NotFound.vue";
 
 import Employees from "../components/Employees/index.vue";
+import CreateEmployee from "../components/Employees/create.vue";
 
 import ShowSingleEmployee from "../components/Employees/show.vue";
 
@@ -12,6 +13,11 @@ const routes = [
         name: "home",
         path: "/",
         component: Welcome,
+    },
+    {
+        name: "create",
+        path: "/employee/create",
+        component: CreateEmployee,
     },
     {
         name: "employees",

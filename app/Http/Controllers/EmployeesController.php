@@ -14,7 +14,7 @@ class EmployeesController extends Controller
     {
         $employees = Employees::all();
 
-        return response()->json(['employees' => $employees], 200);
+        return response()->json($employees, 200);
     }
     /**
      * Display a listing of the resource.
@@ -50,10 +50,9 @@ class EmployeesController extends Controller
     {
         try {
             $employee = Employees::find($id);
-
             echo $employee;
             if ($employee) {
-                return response()->json(['employee' => $employee], 200);
+                return response()->json($employee, 200);
             } else {
                 return response()->json(['error' => 'Employee not found'], 404);
             }
@@ -69,8 +68,8 @@ class EmployeesController extends Controller
 
             // dd($employee);
             if ($employee) {
-                return response()->json(['employee' => $employee], 200);
-
+                //return response()->json(['employee' => $employee], 200);
+                return response()->json($employee, 200);
             } else {
                 return response()->json(['error' => 'Employee not found'], 404);
             }
