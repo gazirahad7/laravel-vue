@@ -72,13 +72,21 @@
     </div>
 
     <!-- Teleport modal -->
-    <button id="show-modal" @click="showModal = true">Show Modal</button>
+    <button @click="showModal = true">Show Modal</button>
 
     <Teleport to="body">
         <!-- use the modal component, pass in the prop -->
-        <modal :show="showModal" @close="showModal = false">
+        <modal :show="showModal" @close="showModal = false" :eId="2">
             <template #header>
                 <h3>custom header</h3>
+            </template>
+            <template #body>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Nihil ducimus nisi nam tempore harum repellat excepturi
+                    consequuntur praesentium natus, alias eaque placeat numquam
+                    autem, atque iure voluptatum a veniam necessitatibus!
+                </p>
             </template>
         </modal>
     </Teleport>
@@ -86,7 +94,7 @@
 
     <component :is="Test" />
 
-    <button @click="openModal()" class="btn btn-warning">Open modal</button>
+    <!-- <button @click="openModal()" class="btn btn-warning">Open modal</button> -->
 
     <!--  Markup  Modal-->
     <div>
@@ -195,6 +203,7 @@ const { data: employees, error, isLoading } = useSWRV(employeeAPI.getEmployees);
 //
 
 const showModal = ref(false);
+const eId = ref(null);
 
 //
 

@@ -1,6 +1,7 @@
 <script setup>
 const props = defineProps({
     show: Boolean,
+    eId: String,
 });
 </script>
 
@@ -14,14 +15,6 @@ const props = defineProps({
 
                 <div class="modal-body">
                     <slot name="body">default body</slot>
-
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quidem dicta deleniti omnis voluptate? Nam, nulla! Illum
-                        architecto rerum veniam accusamus sit corporis,
-                        blanditiis nostrum voluptatibus quibusdam eius
-                        voluptatem ratione obcaecati?
-                    </p>
                 </div>
 
                 <div class="modal-footer">
