@@ -71,8 +71,6 @@
         </div>
     </div>
 
-    <component :is="Test" />
-
     <!-- <button @click="openModal()" class="btn btn-warning">Open modal</button> -->
 
     <!--  Markup  Modal-->
@@ -198,6 +196,7 @@ import Test from "../../components/common/Test.vue";
 //import Modal from "../../components/common/MyModal.vue";
 
 import Modal from "../../components//common/CusModal.vue";
+import axios from "axios";
 
 const { employeeAPI } = apis;
 
@@ -233,7 +232,14 @@ const openModal = (getId) => {
     fetchUserList();
 };
 //
-
+const confirmDelete = async (id) => {
+    const confirmed = window.confirm(
+        "Are you sure you want to delete this user?"
+    );
+    if (confirmed) {
+        await axios.delete(`${apis.employeeAPI.delete}/${id}`);
+    }
+};
 // const openModal = () => {
 //     const modal = document.getElementById("myModal");
 //     modal.classList.add("show");
