@@ -46,7 +46,7 @@
                                 View</RouterLink
                             >
                             <button
-                                @click="onShow(user.id)"
+                                @click="openModal(user.id)"
                                 class="btn btn-warning"
                             >
                                 Edit
@@ -70,27 +70,6 @@
             </table>
         </div>
     </div>
-
-    <!-- Teleport modal -->
-    <button @click="showModal = true">Show Modal</button>
-
-    <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
-        <modal :show="showModal" @close="showModal = false" :eId="2">
-            <template #header>
-                <h3>custom header</h3>
-            </template>
-            <template #body>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nihil ducimus nisi nam tempore harum repellat excepturi
-                    consequuntur praesentium natus, alias eaque placeat numquam
-                    autem, atque iure voluptatum a veniam necessitatibus!
-                </p>
-            </template>
-        </modal>
-    </Teleport>
-    <!-- view component -->
 
     <component :is="Test" />
 
@@ -179,6 +158,35 @@
             </div>
         </div>
     </div>
+
+    <!-- View single employee  modal  -->
+
+    <component
+        :is="Modal"
+        :show="showModal"
+        :eId="getId"
+        @close="showModal = false"
+    >
+        <div>
+            <h2>Single employee information:</h2>
+        </div>
+
+        <div>
+            <div v-if="employee?.length > 0">
+                <div v-for="(user, index) in employee" :key="user.id">
+                    <p>{{ index + 1 }}</p>
+                    <p>{{ user.name }}</p>
+                    <p>{{ user.email }}</p>
+                    <p>{{ user.age }}</p>
+                    <p>{{ user.website || "$0" }}</p>
+                </div>
+            </div>
+
+            <div v-else>
+                <p>No matching users found.</p>
+            </div>
+        </div>
+    </component>
 </template>
 
 <script setup>
@@ -187,7 +195,9 @@ import useSWRV from "swrv";
 import { apis } from "../../apis/apiEndPoint";
 
 import Test from "../../components/common/Test.vue";
-import Modal from "../../components/common/MyModal.vue";
+//import Modal from "../../components/common/MyModal.vue";
+
+import Modal from "../../components//common/CusModal.vue";
 
 const { employeeAPI } = apis;
 
@@ -205,28 +215,45 @@ const { data: employees, error, isLoading } = useSWRV(employeeAPI.getEmployees);
 const showModal = ref(false);
 const eId = ref(null);
 
+const employee = ref(null);
+const openModal = (getId) => {
+    // alert(getId);
+    console.log(`/${apis.employeeAPI.getEmployee}/${getId}`);
+
+    showModal.value = true;
+    const fetchUserList = async () => {
+        const response = await fetch(
+            `${apis.employeeAPI.getEmployee}/${getId}`
+        );
+        const data = await response.json();
+        employee.value = data;
+        return data;
+    };
+
+    fetchUserList();
+};
 //
 
-const openModal = () => {
-    const modal = document.getElementById("myModal");
-    modal.classList.add("show");
-    modal.style.display = "block";
-    modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+// const openModal = () => {
+//     const modal = document.getElementById("myModal");
+//     modal.classList.add("show");
+//     modal.style.display = "block";
+//     modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
 
-    document.body.classList.add("modal-open");
+//     document.body.classList.add("modal-open");
 
-    // show the overlay
-    const overlay = document.getElementById("overlay");
-    overlay.style.display = "block";
-};
+//     // show the overlay
+//     const overlay = document.getElementById("overlay");
+//     overlay.style.display = "block";
+// };
 
-const closeModal = () => {
-    const modal = document.getElementById("myModal");
-    modal.classList.remove("show");
-    modal.style.display = "none";
+// const closeModal = () => {
+//     const modal = document.getElementById("myModal");
+//     modal.classList.remove("show");
+//     modal.style.display = "none";
 
-    // hide the   overlay
-    const overlay = document.getElementById("overlay");
-    overlay.style.display = "none";
-};
+//     // hide the   overlay
+//     const overlay = document.getElementById("overlay");
+//     overlay.style.display = "none";
+// };
 </script>
