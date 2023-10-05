@@ -1,13 +1,41 @@
 <!-- Modal.vue -->
 <template>
-    <div class="modal" v-if="show">
-        <div class="modal-content">
-            <p>header</p>
-            <slot></slot>
-            <button @click="closeModal">Close Modal</button>
-            <!-- <button @click="show == true ? (show = false) : (show = true)">
-                Close Modal
-            </button> -->
+    <!-- <div class="modal" v-if="show">
+            <div class="modal-content">
+                <p>header</p>
+                <slot></slot>
+                <button @click="closeModal">Close Modal</button>
+            </div>
+        </div> -->
+
+    <div class="modal" v-if="show" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update User Info:</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        @click="closeModal"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <slot></slot>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                        @click="closeModal"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -43,7 +71,6 @@ import { ref, defineProps, defineEmits } from "vue";
 </script>
 
 <style scoped>
-/* Add your modal styles here */
 .modal {
     position: fixed;
     top: 0;

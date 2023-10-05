@@ -48,31 +48,11 @@ class EmployeesController extends Controller
 
     public function storeEmployee(Request $request)
     {
-        // $formFields = $request->validate([
-        //     'name' => 'required|min:4',
-        //     'email' => 'required',
-        //     'age' => 'required',
-        //     'gender' => 'required',
-        // ]);
-
-        // dd($formFields);
-
-        // dd('jl');
-        // $employee = new Employees();
-        // $employee->name = $request->name;
-        // $employee->age = $request->age;
-        // $employee->email = $request->email;
-        // $employee->gender = $request->gender;
-        // dd($employee);
-        // $employee->save();
-
         $employee = Employees::create($request->post());
-
         return response()->json([
             'message' => 'Employee created successfully',
             'employee' => $employee,
         ]);
-
     }
 
     /**
@@ -92,7 +72,6 @@ class EmployeesController extends Controller
             return response()->json(['error' => 'An error occurred'], 500);
         }
     }
-
     public function show_employee(Employees $id)
     {
         try {
@@ -121,9 +100,26 @@ class EmployeesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employees $employees)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            // Find the employee by ID
+            $employee = Employees::find($id);
+
+            if (!$employee) {
+                return response()->json(['error' => 'Employee not found'], 404);
+            }
+
+            // Update the employee's information with the data from the request
+            $employee->update($request->all());
+
+            return response()->json([
+                'message' => 'Employee updated successfully',
+                'employee' => $employee,
+            ], 200);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => 'An error occurred while updating the employee'], 500);
+        }
     }
 
     /**

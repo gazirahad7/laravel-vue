@@ -1,9 +1,12 @@
 <script setup>
 import axios from "axios";
 import { useForm, Form, Field, ErrorMessage } from "vee-validate";
+import { ref } from "vue";
 
 import * as yup from "yup";
 import { apis } from "../../apis/apiEndPoint";
+
+const formValues = ref({});
 
 const schema = {
     gender: (value) => {
@@ -79,7 +82,19 @@ const age = defineInputBinds("age");
             </div>
             <div class="mb-3">
                 <label class="form-label">Gender</label> <br />
-                <!-- 
+
+                <Field name="gender" type="radio" value="" />
+                Male
+                <Field name="gender" type="radio" value="Tea" /> Female
+                <Field name="gender" type="radio" value="Coffee" /> Other
+                <ErrorMessage name="gender" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </form>
+    </div>
+</template>
+
+<!-- 
                 <div class="form-check">
                     <input
                         class="form-check-input"
@@ -113,14 +128,3 @@ const age = defineInputBinds("age");
                         Other
                     </label>
                 </div> -->
-
-                <Field name="gender" type="radio" value="" />
-                Male
-                <Field name="gender" type="radio" value="Tea" /> Female
-                <Field name="gender" type="radio" value="Coffee" /> Other
-                <ErrorMessage name="gender" />
-            </div>
-            <button type="submit" class="btn btn-primary">Create User</button>
-        </form>
-    </div>
-</template>
