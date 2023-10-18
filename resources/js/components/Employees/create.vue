@@ -30,7 +30,7 @@ const createUser = handleSubmit(async (values) => {
     const fromData = JSON.stringify(values, null, 2);
     //console.log(fromData);
 
-    // console.log(JSON.parse(fromData));
+    console.log(JSON.parse(fromData));
 
     try {
         const res = await axios.post(

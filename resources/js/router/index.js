@@ -7,6 +7,7 @@ import Employees from "../components/Employees/index.vue";
 import CreateEmployee from "../components/Employees/create.vue";
 
 import ShowSingleEmployee from "../components/Employees/show.vue";
+import AddProduct from "../components/Products/create.vue";
 
 const routes = [
     {
@@ -28,6 +29,13 @@ const routes = [
         path: "/employees/show/:id",
         component: ShowSingleEmployee,
         props: true,
+    },
+
+    // for product page
+
+    {
+        path: "/create/product",
+        component: AddProduct,
     },
     {
         path: "/:pathMatch(.*)*",

@@ -48,11 +48,14 @@ class EmployeesController extends Controller
 
     public function storeEmployee(Request $request)
     {
-        $employee = Employees::create($request->post());
-        return response()->json([
-            'message' => 'Employee created successfully',
-            'employee' => $employee,
-        ]);
+        $employee = Employees::create($request->all());
+        // return response()->json([
+        //     'employee' => $employee,
+        //     'message' => 'Employee created successfully',
+        // ], 201);
+
+        return response()->json($employee, 201);
+
     }
 
     /**

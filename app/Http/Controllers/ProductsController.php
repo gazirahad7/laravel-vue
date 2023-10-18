@@ -12,7 +12,24 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $products = Products::all();
+
+            $count = Products::count();
+
+            echo $count;
+            if ($count > 0) {
+                return response()->json($products, 200);
+
+            } else {
+                return response()->json(['error' => 'Products not found !!!'], 400);
+
+            }
+        } catch (\Exception) {
+
+            return response()->json(['error' => 'An error occurred'], 500);
+        }
+
     }
 
     /**
@@ -28,7 +45,12 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //echo 'post';
+        $product = Products::create($request->post());
+        return response()->json([
+            'message' => 'Product created successfully',
+            'product' => $product,
+        ]);
     }
 
     /**
